@@ -4,6 +4,7 @@ const Target = ({ x = 0, y = 0, value = 0, onClick = () => {} }) => (
   <div
     style={{
       position: 'absolute',
+      borderRadius: '200px',
       top: `${y}%`,
       left: `${x}%`,
       width: '25px',

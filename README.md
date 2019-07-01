@@ -19,13 +19,13 @@
 - every seconds, one target is spawned D
 - after 5 killed targets, two are spawned every second D
 - after 15 killed targets, three are spawned D
-- whenever the player kills 3 targets without losing a life, the `scoreMultiplier` is doubled
-- whenever the player loses one life, the `scoreMultiplier` is reset to 1
+- whenever the player kills 3 targets without losing a life, the `scoreMultiplier` is doubled D
+- whenever the player loses one life, the `scoreMultiplier` is reset to 1 D
 
 rule: all of this must be handled from the sagas
 (e.g: you can not send events from your react components to do that).
 
-5. Add a way to increase difficulty by changing `TIME_INTERVAL`. 
+5. Add a way to increase difficulty by changing `TIME_INTERVAL`. D
 
 6. Make this game fun. No time due to finals... I suck at learning maths.
    (all bonii must be listed when you deliver your game to your bored teacher)

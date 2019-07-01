@@ -7,7 +7,7 @@ export function deleteTarget(id) {
     return { type: action_types.DELETE_TARGET, id: id };
 }
 export function decreaseLives() {
-    return { type: action_types.DECREASE_LIVES};
+    return { type: action_types.DECREASE_LIVES };
 }
 export function gameStart() {
     return { type: action_types.GAME_START };
@@ -24,8 +24,8 @@ export function gameStopRequested() {
 export function updateTarget(target) {
     return { type: action_types.UPDATE_TARGET, target: target };
 }
-export function clickTarget(id) {
-    return { type: action_types.CLICK_TARGET, id: id };
+export function clickTarget(id, q) {
+    return { type: action_types.CLICK_TARGET, id: id, q: q };
 }
 export function updateDifficulty(d) {
     return { type: action_types.UPDATE_DIFFICULTY, d: d };
