@@ -15,8 +15,8 @@ export function gameStartRequested() {
 export function gameStopRequested() {
     return { type: action_types.GAME_STOP_REQUESTED };
 }
-export function updateTarget(id) {
-    return { type: action_types.UPDATE_TARGET, id: id };
+export function updateTarget(target) {
+    return { type: action_types.UPDATE_TARGET, target: target };
 }
 export function clickTarget(id) {
     return { type: action_types.CLICK_TARGET, id: id };

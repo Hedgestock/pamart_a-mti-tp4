@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Target from '../components/Target';
 import Info from '../components/Info';
 import ButtonStart from '../components/ButtonStart';
-import { gameStartRequested, gameStopRequested } from '../actions';
+import { gameStartRequested, gameStopRequested, clickTarget } from '../actions';
 import ButtonStop from '../components/ButtonStop';
 
 // FIXME: maybe, do something about this ?
@@ -32,7 +32,7 @@ const GameLayout = ({ isStarted, lives, score, dispatch, targets }) => (
       <>
         <Info lives={lives} score={score} />
         {
-          targets.map((t) => <Target key={t.id} x={t.x} y={t.y} value={t.v} />)
+          targets.map((t) => <Target key={t.id} x={t.x} y={t.y} value={t.v} onClick={() => dispatch(clickTarget(t.id))} />)
         }
         <ButtonStop onClick={() => dispatch(gameStopRequested())} />
       </>
