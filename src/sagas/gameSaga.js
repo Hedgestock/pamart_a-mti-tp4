@@ -1,18 +1,18 @@
 import { delay } from 'redux-saga'
 import { fork, take, race, call, put, select } from 'redux-saga/effects'
 import { GAME_START, GAME_START_REQUESTED, CLICK_TARGET } from '../actions/action-types'
-import { gameStart, deleteTarget, addTarget, updateTarget } from '../actions/index'
+import { gameStart, deleteTarget, addTarget, updateTarget, decreaseLives, gameStop } from '../actions/index'
 import Target from '../components/Target';
+import { globalAgent } from 'http';
 
 let TIME_INTERVAL = 1000;
 let TICK_RATE = 1000;
 
 function* waitForClickedTarget() {
     while (yield select(({ game }) => game.isStarted)) {
-        let expectedAction = {};
-        yield take(action => expectedAction = action)
-        if (expectedAction.type === CLICK_TARGET) {
-            yield put(deleteTarget(expectedAction.id));
+        let action = yield take(action => action)
+        if (action.type === CLICK_TARGET) {
+            yield put(deleteTarget(action.id));
         }
     }
 }
@@ -22,7 +22,16 @@ function* decreaseTargetsValue() {
         yield delay(TIME_INTERVAL);
         let targets = yield select(({ targets }) => targets);
         for (let target of targets) {
-            yield put(updateTarget({ ...target, v: target.v - 1 }))
+            if (target.v <= 1) {
+                yield put(deleteTarget(target.id));
+                yield put(decreaseLives());
+                if (yield select(({ game }) => game.lives <= 0)) {
+                    yield put(gameStop());
+                }
+            }
+            else {
+                yield put(updateTarget({ ...target, v: target.v - 1 }));
+            }
         }
     }
 }
@@ -35,8 +44,15 @@ function* gameSaga() {
         yield fork(waitForClickedTarget);
         yield fork(decreaseTargetsValue);
         while (yield select(({ game }) => game.isStarted && game.lives > 0)) {
-            yield delay(TICK_RATE);
+            let game = yield select(({ game }) => game);
+            yield delay(game.tickRate);
             yield put(addTarget());
+            if (game.score >= 5) {
+                yield put(addTarget());
+            }
+            if (game.score >= 15) {
+                yield put(addTarget());
+            }
         }
     }
 }

@@ -25,6 +25,8 @@ const targets = (state = defaultState, action) => {
             return state.map(t => t.id === action.target.id ? target(t, action) : t);
         case action_types.DELETE_TARGET:
             return state.filter(t => t.id !== action.id);
+        case action_types.GAME_STOP:
+            return defaultState;
         default:
             return state
     }

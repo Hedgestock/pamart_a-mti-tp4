@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import Target from '../components/Target';
 import Info from '../components/Info';
 import ButtonStart from '../components/ButtonStart';
-import { gameStartRequested, gameStopRequested, clickTarget } from '../actions';
+import { gameStartRequested, gameStop, clickTarget } from '../actions';
 import ButtonStop from '../components/ButtonStop';
+import DifficultySlider from '../components/DifficultySlider';
 
-// FIXME: maybe, do something about this ?
 const mapStateToProps = state => ({
   lives: state.game.lives,
   score: state.game.score,
@@ -34,11 +34,14 @@ const GameLayout = ({ isStarted, lives, score, dispatch, targets }) => (
         {
           targets.map((t) => <Target key={t.id} x={t.x} y={t.y} value={t.v} onClick={() => dispatch(clickTarget(t.id))} />)
         }
-        <ButtonStop onClick={() => dispatch(gameStopRequested())} />
+        <ButtonStop onClick={() => dispatch(gameStop())} />
       </>
     ) : (
-      <ButtonStart onClick={() => dispatch(gameStartRequested())} />
-    )}
+        <>
+          <ButtonStart onClick={() => dispatch(gameStartRequested())} />
+          <DifficultySlider />
+        </>
+      )}
   </div>
 );
 

@@ -11,7 +11,7 @@ const Target = ({ x = 0, y = 0, value = 0, onClick = () => {} }) => (
       textAlign: 'center',
       lineHeight: '25px',
       cursor: 'pointer',
-      backgroundColor: '#FFD065'
+      backgroundColor: `#${9-9*value/3}${9-9*value/3}${9*value/3}${9*value/3}00`
     }}
     onClick={onClick}
   >
