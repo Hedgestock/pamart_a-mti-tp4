@@ -16,8 +16,6 @@ const target = (state, action) => {
 }
 
 const targets = (state = defaultState, action) => {
-    console.log(action);
-
     switch (action.type) {
         case action_types.ADD_TARGET:
             return [...state, target(undefined, action)];
