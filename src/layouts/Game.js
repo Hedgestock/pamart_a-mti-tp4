@@ -3,15 +3,18 @@ import { connect } from 'react-redux';
 import Target from '../components/Target';
 import Info from '../components/Info';
 import ButtonStart from '../components/ButtonStart';
+import { gameStartRequested, gameStopRequested } from '../actions';
+import ButtonStop from '../components/ButtonStop';
 
 // FIXME: maybe, do something about this ?
 const mapStateToProps = state => ({
   lives: state.game.lives,
   score: state.game.score,
-  isStarted: state.game.isStarted
+  isStarted: state.game.isStarted,
+  targets: state.targets,
 });
 
-const GameLayout = ({ isStarted, lives, score, dispatch }) => (
+const GameLayout = ({ isStarted, lives, score, dispatch, targets }) => (
   <div
     style={{
       position: 'fixed',
@@ -26,12 +29,15 @@ const GameLayout = ({ isStarted, lives, score, dispatch }) => (
     }}
   >
     {isStarted ? (
-      <React.Fragment>
+      <>
         <Info lives={lives} score={score} />
-        <Target x={50} y={30} value={2} />
-      </React.Fragment>
+        {
+          targets.map((t) => <Target key={t.id} x={t.x} y={t.y} value={t.v} />)
+        }
+        <ButtonStop onClick={() => dispatch(gameStopRequested())} />
+      </>
     ) : (
-      <ButtonStart onClick={() => dispatch({ type: 'GAME_START_REQUESTED' })} />
+      <ButtonStart onClick={() => dispatch(gameStartRequested())} />
     )}
   </div>
 );

@@ -1,4 +1,11 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import { addTarget } from '../actions/index'
+
+function mapDispatchToProps(dispatch) {
+  return {onClick: () => {dispatch(addTarget())}}
+}
+
 
 const Target = ({ x = 0, y = 0, value = 0, onClick = () => {} }) => (
   <div
@@ -19,4 +26,4 @@ const Target = ({ x = 0, y = 0, value = 0, onClick = () => {} }) => (
   </div>
 );
 
-export default Target;
+export default connect(null, mapDispatchToProps)(Target);

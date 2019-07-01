@@ -1,3 +1,5 @@
+import { GAME_START } from '../actions/action-types'
+
 const defaultState = {
   lives: 3,
   score: 0,
@@ -6,7 +8,7 @@ const defaultState = {
 
 const game = (state = defaultState, action) => {
   switch (action.type) {
-    case 'GAME_START':
+    case GAME_START:
       return {
         ...state,
         isStarted: true
